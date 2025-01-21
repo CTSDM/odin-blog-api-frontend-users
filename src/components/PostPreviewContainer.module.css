@@ -1,0 +1,8 @@
+.container {
+  display: grid;
+  gap: 15px;
+  justify-items: center;
+  width: min(max(500px, 70vw), 1000px);
+  justify-self: center;
+  height: fit-content;
+}

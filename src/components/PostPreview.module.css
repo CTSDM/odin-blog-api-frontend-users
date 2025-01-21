@@ -1,0 +1,29 @@
+.container {
+  display: grid;
+  border: 4px blue solid;
+  width: 100%;
+  height: fit-content;
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.content {
+  color: grey;
+}
+
+.content-overflow {
+  position: relative;
+  overflow-y: hidden;
+  height: 20rem;
+}
+
+.overflow-cover {
+  height: 2rem;
+  width: 100%;
+  background-image: linear-gradient(rgba(40, 40, 40, 0), rgba(0, 0, 0, 1));
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

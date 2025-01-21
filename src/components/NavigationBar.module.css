@@ -1,0 +1,30 @@
+nav {
+  display: flex;
+  justify-self: end;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.bar {
+  border: 3px solid black;
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  background-color: #EEFFFF;
+  font-size: 1.5rem;
+  padding: 0px 40px;
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+}
+
+.bar img {
+  height: 1.5rem;
+}
+
+.total-items {
+  position: relative;
+  top: -0.1rem;
+  right: 30px;
+  font-size: 1rem;
+}

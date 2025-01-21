@@ -1,0 +1,12 @@
+.container {
+  background-color: #222222;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.link {
+  background-color: black;
+  padding: 7px 15px;
+  border-radius: 9px;
+  color: yellow;
+}

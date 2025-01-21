@@ -11,6 +11,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1"
@@ -31,5 +32,21 @@
     "jsdom": "^25.0.1",
     "vite": "^6.0.5",
     "vitest": "^2.1.8"
-  }
+  },
+  "description": "React repository template",
+  "main": "eslint.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CTSDM/odin-blog-api-frontend-users.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CTSDM/odin-blog-api-frontend-users/issues"
+  },
+  "homepage": "https://github.com/CTSDM/odin-blog-api-frontend-users#readme"
 }
