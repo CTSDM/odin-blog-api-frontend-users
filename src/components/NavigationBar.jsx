@@ -4,20 +4,23 @@ import { elementsNavBar } from "../../config/config.js";
 import styles from "./NavigationBar.module.css";
 import navBarImg from "../assets/delta-sigma.svg";
 
-function NavigationBar({ isLogged }) {
+function NavigationBar({ isLogged, username }) {
     const entries = getHrefsInfo(elementsNavBar, isLogged);
     return (
         <div role={"nav-container"} className={styles.bar}>
             <div>
                 <img src={navBarImg} alt="company logo" />
             </div>
-            <nav>
-                {entries.map((entry) => (
-                    <NavLink to={entry[1]} key={entry[1]}>
-                        {entry[0]}
-                    </NavLink>
-                ))}
-            </nav>
+            <div className={styles.subcontainer}>
+                <span>Welcome {username}</span>
+                <nav>
+                    {entries.map((entry) => (
+                        <NavLink to={entry[1]} key={entry[1]}>
+                            {entry[0]}
+                        </NavLink>
+                    ))}
+                </nav>
+            </div>
         </div>
     );
 }
@@ -30,6 +33,7 @@ function getHrefsInfo(obj, isLogged) {
 
 NavigationBar.propTypes = {
     isLogged: PropTypes.bool.isRequired,
+    username: PropTypes.string,
 };
 
 export default NavigationBar;

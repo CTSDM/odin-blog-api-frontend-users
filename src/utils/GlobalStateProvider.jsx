@@ -8,6 +8,7 @@ import NavigationBar from "../components/NavigationBar.jsx";
 function GlobalContextProvider() {
     const [isLoading, setIsLoading] = useState(true);
     const [isLogged, setIsLogged] = useState(false);
+    const [username, setUsername] = useState(null);
     const ms = 500;
 
     useEffect(() => {
@@ -26,6 +27,7 @@ function GlobalContextProvider() {
                 setIsLogged(true);
             } else {
                 setIsLogged(false);
+                setUsername(null);
             }
             setIsLoading(false);
         })();
@@ -35,13 +37,13 @@ function GlobalContextProvider() {
     }, []);
 
     return (
-        <Context.Provider value={[isLogged, setIsLogged]}>
+        <Context.Provider value={[isLogged, setIsLogged, username, setUsername]}>
             {isLoading ? (
                 <div>loading</div>
             ) : (
                 <>
                     <header>
-                        <NavigationBar isLogged={isLogged} />
+                        <NavigationBar isLogged={isLogged} username={username} />
                     </header>
                     <Outlet />
                 </>

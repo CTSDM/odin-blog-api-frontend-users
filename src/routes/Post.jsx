@@ -12,7 +12,7 @@ export async function loader({ params }) {
 
 function Post() {
     const response = useLoaderData();
-    if (response.status !== 200) return <div>{"Something went wrong on the server side!"}</div>;
+    if (response.status !== 200) return <div>{"The requested page does not exist"}</div>;
     return (
         <div className={styles["container-post-comment"]}>
             <div className={styles.container}>

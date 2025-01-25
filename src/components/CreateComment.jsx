@@ -22,7 +22,6 @@ function CreateComment({ postId }) {
 
 export const action = async ({ request }) => {
     const data = await request.formData();
-    console.log(request);
     const submission = {
         content: data.get("content"),
         postId: data.get("postId"),

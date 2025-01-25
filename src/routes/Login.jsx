@@ -7,19 +7,20 @@ import InputComp from "../components/InputComp.jsx";
 
 export default function Login() {
     const [info, setInfo] = useState("");
-    const [isLogged, setIsLogged] = useContext(GlobalStateContext);
+    const [isLogged, setIsLogged, , setUsername] = useContext(GlobalStateContext);
     const navigate = useNavigate();
-    const status = useActionData();
+    const response = useActionData();
 
     useEffect(() => {
         if (isLogged) {
             navigate("/");
             return;
         }
-        if (status) {
-            if (status === 200) {
+        if (response) {
+            if (response.status === 200) {
                 setInfo("APE IS IN");
                 setIsLogged(true);
+                setUsername(response.data.username);
                 navigate("/");
                 return;
             } else {
@@ -29,7 +30,7 @@ export default function Login() {
                 return;
             }
         }
-    }, [status]);
+    }, [response]);
 
     return (
         <>
@@ -62,8 +63,8 @@ export const action = async ({ request }) => {
         password: data.get("password"),
     };
 
-    const status = await submitLogin(submission);
-    return status;
+    const response = await submitLogin(submission);
+    return response;
 };
 
 async function submitLogin(data) {
@@ -80,5 +81,6 @@ async function submitLogin(data) {
         },
     });
 
-    return response.status;
+    const userData = response.json();
+    return { status: response.status, data: userData };
 }
