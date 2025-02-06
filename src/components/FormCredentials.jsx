@@ -7,17 +7,23 @@ import PropTypes from "prop-types";
 import styles from "./FormCredentials.module.css";
 
 export default function FormCredentials({
+    inputs,
     msgArr,
     setMsgArr,
     action,
-    type,
     validate,
     handleSubmit,
 }) {
     return (
-        <Form className={styles.form} method="post" action={action} onSubmit={handleSubmit}>
+        <Form
+            className={styles.form}
+            inputs={inputs}
+            method="post"
+            action={action}
+            onSubmit={handleSubmit}
+        >
             <div className={styles["container-inputs"]}>
-                {env.inputs[type].map((input) => {
+                {inputs.map((input) => {
                     const field = input[1];
                     return (
                         <InputComp
@@ -49,6 +55,7 @@ export default function FormCredentials({
 }
 
 FormCredentials.propTypes = {
+    inputs: PropTypes.array.isRequired,
     msgArr: PropTypes.array,
     setMsgArr: PropTypes.func,
     action: PropTypes.string.isRequired,

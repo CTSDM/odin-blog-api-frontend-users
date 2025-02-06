@@ -8,7 +8,7 @@ import Post, { loader as postLoader } from "./routes/Post.jsx";
 import Signup, { action as signupAction } from "./routes/Signup.jsx";
 import { action as createCommentAction } from "./components/CreateComment.jsx";
 
-const routes = createBrowserRouter([
+const routesConfig = [
     {
         path: "/",
         element: <GlobalContextProvider />,
@@ -45,6 +45,9 @@ const routes = createBrowserRouter([
             },
         ],
     },
-]);
+];
 
-export default routes;
+const routes = createBrowserRouter(routesConfig);
+
+export default routesConfig;
+export { routes };

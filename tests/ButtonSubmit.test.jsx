@@ -4,7 +4,7 @@ import ButtonSubmit from "../src/components/ButtonSubmit.jsx";
 
 describe("The component ", () => {
     it("should be rendered", () => {
-        render(<ButtonSubmit text={""} />);
+        render(<ButtonSubmit text={"something"} />);
         const button = screen.getByRole("button");
         expect(button).toBeInTheDocument();
     });

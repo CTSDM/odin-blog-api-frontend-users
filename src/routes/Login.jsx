@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, useActionData, redirect } from "react-router-dom";
 import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
 import FormCredentials from "../components/FormCredentials.jsx";
+import { env } from "../../config/config.js";
 import styles from "./Login.module.css";
 import stylesShared from "../styles/form.module.css";
 
@@ -37,7 +38,7 @@ export default function Login() {
             <div className={stylesShared.container}>
                 <div className={styles.message}>{refMessage.current}</div>
                 <div>
-                    <FormCredentials type={"login"} action={"/login"} validate={false} />
+                    <FormCredentials inputs={env.inputs.login} action={"/login"} validate={false} />
                     <div>{info}</div>
                 </div>
             </div>

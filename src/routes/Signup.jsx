@@ -3,7 +3,7 @@ import { useNavigate, useActionData } from "react-router-dom";
 import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
 import { env } from "../../config/config.js";
 import ErrMsg from "../components/ErrMsg.jsx";
-import routes from "../routes.jsx";
+import { routes } from "../routes.jsx";
 import { getLengthArrofArr } from "../utils/utils.js";
 import styles from "./Signup.module.css";
 import stylesShared from "../styles/form.module.css";
@@ -81,10 +81,10 @@ export default function Signup() {
                     ) : null}
                 </div>
                 <FormCredentials
+                    inputs={env.inputs.signup}
                     msgArr={msgArr}
                     setMsgArr={setMsgArr}
                     handleSubmit={handleSubmit}
-                    type={"signup"}
                     action={"/signup"}
                     validate={true}
                 />

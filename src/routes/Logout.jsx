@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { Context as GlobalContext } from "../utils/GlobalStateContext.js";
-import routes from "../routes.jsx";
+import { routes } from "../routes.jsx";
 
 function Logout() {
     const [, setIsLogged, , setUsername] = useContext(GlobalContext);
