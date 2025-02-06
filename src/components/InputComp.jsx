@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./InputComp.module.css";
 
-function InputText({ type, name, placeholder, minLength, maxLength, pattern, handleOnChange }) {
+function InputText({ type, name, placeholder, minLength, maxLength, handleOnChange }) {
     return (
         <div className={styles["input-container"]}>
             <input
@@ -13,7 +13,6 @@ function InputText({ type, name, placeholder, minLength, maxLength, pattern, han
                 required
                 minLength={minLength}
                 maxLength={maxLength}
-                pattern={pattern}
                 onChange={handleOnChange}
                 className={styles.input}
             />
@@ -30,7 +29,6 @@ InputText.propTypes = {
     placeholder: PropTypes.string.isRequired,
     minLength: PropTypes.number,
     maxLength: PropTypes.number,
-    pattern: PropTypes.string,
     handleOnChange: PropTypes.func,
 };
 
