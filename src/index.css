@@ -31,11 +31,7 @@ a:hover {
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
-}
-
-#root>div {
-  width: max(500px, 70vw);
-  place-self: center;
+  overflow-y: auto;
 }
 
 body {

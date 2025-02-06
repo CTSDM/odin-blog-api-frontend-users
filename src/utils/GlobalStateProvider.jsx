@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -9,6 +9,7 @@ function GlobalContextProvider() {
     const [isLoading, setIsLoading] = useState(true);
     const [isLogged, setIsLogged] = useState(false);
     const [username, setUsername] = useState(null);
+    const message = useRef();
     const ms = 500;
 
     useEffect(() => {
@@ -25,6 +26,8 @@ function GlobalContextProvider() {
             await sleep(ms);
             if (response.status === 200) {
                 setIsLogged(true);
+                const json = await response.json();
+                setUsername(json.username);
             } else {
                 setIsLogged(false);
                 setUsername(null);
@@ -37,7 +40,7 @@ function GlobalContextProvider() {
     }, []);
 
     return (
-        <Context.Provider value={[isLogged, setIsLogged, username, setUsername]}>
+        <Context.Provider value={[isLogged, setIsLogged, username, setUsername, message]}>
             {isLoading ? (
                 <div>loading</div>
             ) : (

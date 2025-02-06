@@ -2,7 +2,7 @@ nav {
   display: flex;
   justify-self: end;
   justify-content: space-between;
-  gap: 30px;
+  gap: 15px;
 }
 
 .bar {
@@ -32,4 +32,14 @@ nav {
 .subcontainer {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
+}
+
+.subcontainer>span {
+  color: darkcyan;
+  font-size: 0.9rem;
+  font-weight: 800;
+  font-family: 'Courier New', Courier, monospace;
+  align-self: end;
+  padding-bottom: 2px;
 }

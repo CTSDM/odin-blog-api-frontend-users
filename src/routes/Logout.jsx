@@ -3,7 +3,7 @@ import { Context as GlobalContext } from "../utils/GlobalStateContext.js";
 import routes from "../routes.jsx";
 
 function Logout() {
-    const [, setIsLogged] = useContext(GlobalContext);
+    const [, setIsLogged, , setUsername] = useContext(GlobalContext);
     useEffect(() => {
         const controller = new AbortController();
         (async () => {
@@ -21,6 +21,7 @@ function Logout() {
                 console.log(response.error);
             }
             setIsLogged(false);
+            setUsername(null);
             routes.navigate("/");
             return;
         })();

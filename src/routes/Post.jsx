@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useLoaderData } from "react-router-dom";
-import Comment from "./Comment.jsx";
+import Comment from "../components/Comment.jsx";
 import CreateComment from "../components/CreateComment.jsx";
 import styles from "./Post.module.css";
 

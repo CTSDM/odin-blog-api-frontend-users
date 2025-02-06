@@ -12,7 +12,7 @@ function NavigationBar({ isLogged, username }) {
                 <img src={navBarImg} alt="company logo" />
             </div>
             <div className={styles.subcontainer}>
-                <span>Welcome {username}</span>
+                {username ? <span>{username}</span> : null}
                 <nav>
                     {entries.map((entry) => (
                         <NavLink to={entry[1]} key={entry[1]}>

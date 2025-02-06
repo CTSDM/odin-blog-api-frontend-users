@@ -1,56 +1,93 @@
 import { useState, useContext, useEffect } from "react";
-import { Form, useNavigate, useActionData, redirect } from "react-router-dom";
+import { useNavigate, useActionData } from "react-router-dom";
 import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
 import { env } from "../../config/config.js";
-import styles from "./Logout.module.css";
-import InputComp from "../components/InputComp.jsx";
+import ErrMsg from "../components/ErrMsg.jsx";
 import routes from "../routes.jsx";
+import { getLengthArrofArr } from "../utils/utils.js";
+import styles from "./Signup.module.css";
+import stylesShared from "../styles/form.module.css";
+import FormCredentials from "../components/FormCredentials.jsx";
 
 export default function Signup() {
     const [info, setInfo] = useState("");
-    const [isLogged, setIsLogged] = useContext(GlobalStateContext);
+    const [msgArr, setMsgArr] = useState([[], [], []]);
+    const [isLogged, setIsLogged, , , refMessage] = useContext(GlobalStateContext);
     const navigate = useNavigate();
-    const status = useActionData();
+    const response = useActionData();
 
     useEffect(() => {
-        if (status) {
-            if (status === 200) {
+        if (!response) {
+            refMessage.current = null;
+        }
+        if (response && response.status) {
+            if (response.status === 200) {
                 setInfo("WELCOME TO THE JUNGLE, NEW APE!");
-                setIsLogged(true);
-                navigate("/");
+                refMessage.current = "You have successfully created an account";
+                navigate("/login");
                 return;
-            } else {
+            } else if (response.status >= 400) {
                 setInfo("SOMETHING WENT WRONT, CANNOT REGISTER APE");
                 setIsLogged(false);
-                redirect("/logout");
                 return;
             }
         }
-    }, [status]);
+    }, [response, navigate, refMessage, setIsLogged]);
+
+    function handleSubmit(e) {
+        let errCount = 0;
+        errCount = errCount + getLengthArrofArr(msgArr);
+        if (errCount > 0) {
+            setInfo("THE FORM IS NOT BEING VALIDATED ON THE FRONT END SIDE");
+            e.preventDefault();
+        }
+    }
 
     if (isLogged === true) {
         routes.navigate("/");
         return;
     }
+
     return (
         <>
-            <div className={styles.container}>
-                <Form method="post" action="/signup">
-                    <div className={styles["container-inputs"]}>
-                        {env.inputs.signup.map((input) => (
-                            <InputComp
-                                key={input[1]}
-                                type={input[0]}
-                                name={input[1]}
-                                placeholder={input[2]}
-                            />
-                        ))}
-                        <button className={styles.input} type="submit">
-                            Create account
-                        </button>
+            <div className={stylesShared.container}>
+                <div className={styles["container-information"]}>
+                    <div className={styles.instructions}>
+                        <div>
+                            The username must have between {env.validation.users.username.minLength}{" "}
+                            and {env.validation.users.username.maxLength} characters.
+                        </div>
+                        <div>
+                            The password must have between {env.validation.users.password.minLength}{" "}
+                            and {env.validation.users.password.maxLength} characters. It must
+                            include at least one upper case letter, one lowe case letter, one number
+                            and one special symbol.
+                        </div>
                     </div>
-                </Form>
-                <div>{info}</div>
+                    {info ? (
+                        <div className={styles.errors}>
+                            <>
+                                <div>{info}</div>
+                                {response && response.status >= 400 ? (
+                                    <ErrMsg
+                                        messages={response.data.errMsg || [].concat(...msgArr)}
+                                    />
+                                ) : null}
+                                {getLengthArrofArr(msgArr) ? (
+                                    <ErrMsg messages={[].concat(...msgArr)} />
+                                ) : null}
+                            </>
+                        </div>
+                    ) : null}
+                </div>
+                <FormCredentials
+                    msgArr={msgArr}
+                    setMsgArr={setMsgArr}
+                    handleSubmit={handleSubmit}
+                    type={"signup"}
+                    action={"/signup"}
+                    validate={true}
+                />
             </div>
         </>
     );
@@ -61,7 +98,7 @@ export const action = async ({ request }) => {
     const submission = {
         username: data.get("username"),
         password: data.get("password"),
-        repassword: data.get("repassword"),
+        rePassword: data.get("rePassword"),
     };
 
     const status = await submitSignup(submission);
@@ -82,5 +119,7 @@ async function submitSignup(data) {
         },
     });
 
-    return response.status;
+    const json = await response.json();
+
+    return { status: response.status, data: json };
 }

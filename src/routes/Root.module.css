@@ -1,7 +1,9 @@
 .container {
   background-color: #222222;
   display: grid;
-  grid-template-rows: auto 1fr;
+  height: fit-content;
+  justify-self: center;
+  width: min(max(500px, 70vw), 1000px);
 }
 
 .link {

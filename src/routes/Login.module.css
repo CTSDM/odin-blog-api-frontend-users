@@ -6,9 +6,22 @@
   border-radius: 30px;
 }
 
-.container {
+.message {
+  padding-left: 20px;
+  font-weight: 600;
+  align-self: end;
+}
+
+.errors {
+  height: fit-content;
+  align-self: end;
+}
+
+.container-inputs {
   display: grid;
-  place-content: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 40px 200px;
 }
 
 button.input {

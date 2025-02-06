@@ -4,10 +4,22 @@
 
 .input-container input {
   background: black;
-  border-color: darkgrey;
   border-radius: 6px;
   padding: 15px 15px;
   font-size: 1rem;
+  outline: none;
+}
+
+.input {
+  border-color: darkgrey;
+}
+
+.wrong {
+  border: red 5px solid;
+}
+
+.correct {
+  border: green 5px solid;
 }
 
 .placeholder {
@@ -30,5 +42,5 @@
   color: #00AAFF;
   font-size: 0.8rem;
   top: -12px;
-  left: 4px;
+  left: 9px;
 }

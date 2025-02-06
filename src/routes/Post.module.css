@@ -32,4 +32,5 @@
 .container-post-comment {
   display: grid;
   gap: 10px;
+  height: fit-content;
 }

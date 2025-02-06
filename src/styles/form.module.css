@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  gap: 40px;
+  grid-template-rows: 1fr 2fr 1fr;
+  min-width: 800px;
+  width: min(max(500px, 70vw), 1000px);
+  margin: auto;
+}
+
+.container form {
+  background: black;
+  border-radius: 30px;
+}
