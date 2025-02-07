@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { elementsNavBar } from "../../config/config.js";
 import styles from "./NavigationBar.module.css";
@@ -9,10 +9,12 @@ function NavigationBar({ isLogged, username }) {
     return (
         <div role={"nav-container"} className={styles.bar}>
             <div>
-                <img src={navBarImg} alt="company logo" />
+                <Link to={"/"}>
+                    <img src={navBarImg} alt="company logo" />
+                </Link>
             </div>
             <div className={styles.subcontainer}>
-                {username ? <span>{username}</span> : null}
+                {isLogged ? <span>{username}</span> : null}
                 <nav>
                     {entries.map((entry) => (
                         <NavLink to={entry[1]} key={entry[1]}>

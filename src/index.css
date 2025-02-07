@@ -9,7 +9,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #151515;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -29,9 +29,14 @@ a:hover {
 
 #root {
   display: grid;
+  gap: 20px;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
   overflow-y: auto;
+  max-width: 1100px;
+  min-width: 600px;
+  margin: 0 auto;
+  background-color: #242424;
 }
 
 body {

@@ -38,7 +38,12 @@ export default function Login() {
             <div className={stylesShared.container}>
                 <div className={styles.message}>{refMessage.current}</div>
                 <div>
-                    <FormCredentials inputs={env.inputs.login} action={"/login"} validate={false} />
+                    <FormCredentials
+                        buttonText={"Sign in"}
+                        inputs={env.inputs.login}
+                        action={"/login"}
+                        validate={false}
+                    />
                     <div>{info}</div>
                 </div>
             </div>

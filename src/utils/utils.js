@@ -107,6 +107,12 @@ function curriedHandler(f) {
     };
 }
 
+function getHrefsInfo(obj, isLogged) {
+    const stateObj = isLogged ? obj.loggedIn : obj.loggedOut;
+    const entries = Object.entries(stateObj);
+    return entries;
+}
+
 const checkFunctions = {
     username: handleChangeUsername,
     password: handleChangePassword,
@@ -123,4 +129,4 @@ export default {
     checkFunctions,
 };
 
-export { checkUsername, checkPassword };
+export { checkUsername, checkPassword, getHrefsInfo };

@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
 import Comment from "../components/Comment.jsx";
 import CreateComment from "../components/CreateComment.jsx";
 import styles from "./Post.module.css";
@@ -12,7 +14,8 @@ export async function loader({ params }) {
 
 function Post() {
     const response = useLoaderData();
-    if (response.status !== 200) return <div>{"The requested page does not exist"}</div>;
+    const [isLogged] = useContext(GlobalStateContext);
+    if (response.status !== 200) return <div>{"Something went wrong on the server side..."}</div>;
     return (
         <div className={styles["container-post-comment"]}>
             <div className={styles.container}>
@@ -20,7 +23,7 @@ function Post() {
                 <div className={styles.author}>{response.data.username}</div>
                 <div className={styles.content}>{response.data.content}</div>
             </div>
-            <CreateComment postId={response.data.id} />
+            {isLogged ? <CreateComment postId={response.data.id} /> : null}
             {response.data.comments.length ? (
                 <div className={styles["comments-container"]}>
                     {response.data.comments.map((comment) => {
@@ -29,7 +32,7 @@ function Post() {
                                 key={comment.id}
                                 content={comment.content}
                                 author={comment.username}
-                                // we convert he date string into date Object
+                                // we convert the date string into date Object
                                 createdTime={new Date(comment["created_time"])}
                             />
                         );

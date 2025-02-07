@@ -1,6 +1,6 @@
 const elementsNavBar = {
     loggedIn: { Home: "/", Logout: "/logout" },
-    loggedOut: { Signup: "/signup", Login: "/login" },
+    loggedOut: { Home: "/", Signup: "/signup", Login: "/login" },
 };
 
 const env = {

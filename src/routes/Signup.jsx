@@ -38,7 +38,7 @@ export default function Signup() {
         let errCount = 0;
         errCount = errCount + getLengthArrofArr(msgArr);
         if (errCount > 0) {
-            setInfo("THE FORM IS NOT BEING VALIDATED ON THE FRONT END SIDE");
+            setInfo("THE FORM IS BEING VALIDATED ON THE FRONT END SIDE");
             e.preventDefault();
         }
     }
@@ -87,6 +87,7 @@ export default function Signup() {
                     handleSubmit={handleSubmit}
                     action={"/signup"}
                     validate={true}
+                    buttonText="Create account"
                 />
             </div>
         </>

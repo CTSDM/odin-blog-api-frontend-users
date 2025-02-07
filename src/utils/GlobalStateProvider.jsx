@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import PropTypes from "prop-types";
+import styles from "./GlobalStateProvider.module.css";
 
 import { Context } from "./GlobalStateContext.js";
 import NavigationBar from "../components/NavigationBar.jsx";
@@ -52,7 +53,9 @@ function GlobalContextProvider() {
                     <header>
                         <NavigationBar isLogged={isLogged} username={username} />
                     </header>
-                    <Outlet />
+                    <div className={styles.container}>
+                        <Outlet />
+                    </div>
                 </>
             )}
         </Context.Provider>

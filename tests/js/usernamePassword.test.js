@@ -2,12 +2,12 @@
 // in all the other tests are valid with the specified constraints
 import { checkPassword, checkUsername } from "../../src/utils/utils.js";
 import { describe, it, expect } from "vitest";
-import { username, password } from "../validEntries.js";
+import { user } from "../validEntries.js";
 
 describe("The username ", () => {
     it("should be valid", () => {
         const arr = [];
-        checkUsername(username, arr);
+        checkUsername(user.username, arr);
         expect(arr).toHaveLength(0);
     });
 
@@ -21,7 +21,7 @@ describe("The username ", () => {
 describe("The password ", () => {
     it("should be valid", () => {
         const arr = [];
-        checkPassword(password, arr);
+        checkPassword(user.password, arr);
         expect(arr).toHaveLength(0);
     });
 

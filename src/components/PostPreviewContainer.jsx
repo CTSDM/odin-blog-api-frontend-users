@@ -26,6 +26,7 @@ function PostPreviewContainer() {
         return <div>{"The posts couldn't be retrieved. Try again, please."}</div>;
     if (postInfo.data.length === 0)
         return <div>{"Whoops, it looks like there are no entries yet..."}</div>;
+
     return (
         <div className={styles.container}>
             {postInfo.data.map((post) => {

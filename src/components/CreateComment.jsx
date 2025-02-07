@@ -1,5 +1,6 @@
-import { Form, useActionData } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Form, useActionData } from "react-router-dom";
+import styles from "./CreateComment.module.css";
 
 function CreateComment({ postId }) {
     const response = useActionData();
@@ -9,10 +10,10 @@ function CreateComment({ postId }) {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <div>Write a new comment:</div>
-            <Form method="POST" action={`/posts/${postId}`}>
-                <textarea rows="4" cols="80" name="content"></textarea>
+            <Form className={styles.form} method="POST" action={`/posts/${postId}`}>
+                <textarea rows="4" cols="60" name="content"></textarea>
                 <input type="text" hidden name="postId" defaultValue={postId} />
                 <button type="submit">Submit new comment</button>
             </Form>

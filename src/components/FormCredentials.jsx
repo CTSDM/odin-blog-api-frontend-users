@@ -13,6 +13,7 @@ export default function FormCredentials({
     action,
     validate,
     handleSubmit,
+    buttonText,
 }) {
     return (
         <Form
@@ -49,7 +50,7 @@ export default function FormCredentials({
                         />
                     );
                 })}
-                <ButtonSubmit text="Create account" />
+                <ButtonSubmit text={buttonText} />
             </div>
         </Form>
     );
@@ -62,4 +63,5 @@ FormCredentials.propTypes = {
     action: PropTypes.string.isRequired,
     validate: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func,
+    buttonText: PropTypes.string.isRequired,
 };
