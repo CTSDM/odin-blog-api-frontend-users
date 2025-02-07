@@ -117,4 +117,10 @@ export function getLengthArrofArr(arrOfArr) {
     return arrOfArr.reduce((acc, arr) => acc + arr.length, 0);
 }
 
-export default { curriedHandler, handleChangeUsername, checkFunctions };
+export default {
+    curriedHandler,
+    handleChangeUsername,
+    checkFunctions,
+};
+
+export { checkUsername, checkPassword };

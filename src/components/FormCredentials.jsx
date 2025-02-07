@@ -21,6 +21,7 @@ export default function FormCredentials({
             method="post"
             action={action}
             onSubmit={handleSubmit}
+            name="form"
         >
             <div className={styles["container-inputs"]}>
                 {inputs.map((input) => {
@@ -60,6 +61,5 @@ FormCredentials.propTypes = {
     setMsgArr: PropTypes.func,
     action: PropTypes.string.isRequired,
     validate: PropTypes.bool.isRequired,
-    type: PropTypes.string.isRequired,
     handleSubmit: PropTypes.func,
 };

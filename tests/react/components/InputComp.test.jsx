@@ -2,7 +2,7 @@
 import { vi, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import InputComp from "../src/components/InputComp";
+import InputComp from "../../../src/components/InputComp";
 
 const defaultParameters = {
     type: "text",
@@ -13,7 +13,7 @@ const defaultParameters = {
 };
 
 function InputCompDefault({
-    type = defaultParameters.text,
+    type = defaultParameters.type,
     name = defaultParameters.name,
     placeholder = defaultParameters.placeholder,
     minLength = defaultParameters.minLength,

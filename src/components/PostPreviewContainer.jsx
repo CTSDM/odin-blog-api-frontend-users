@@ -8,18 +8,22 @@ function PostPreviewContainer() {
     useEffect(() => {
         const controller = new AbortController();
         (async () => {
-            const response = await getAllPosts(controller);
-            setPostInfo(response);
+            try {
+                const response = await getAllPosts(controller);
+                setPostInfo(response);
+            } catch (err) {
+                console.log(err);
+            }
         })();
 
-        return () => controller.abort();
+        return () => {
+            controller.abort("Cancelled because of React StrictMode it gets called twice.");
+        };
     }, []);
 
     if (postInfo === null) return <div>{"Loading..."}</div>;
     if (postInfo.status !== 200)
-        return (
-            <div>{"The posts couldn't be retrieved. Try again, please."}</div>
-        );
+        return <div>{"The posts couldn't be retrieved. Try again, please."}</div>;
     if (postInfo.data.length === 0)
         return <div>{"Whoops, it looks like there are no entries yet..."}</div>;
     return (

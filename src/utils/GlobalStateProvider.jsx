@@ -17,25 +17,29 @@ function GlobalContextProvider() {
         (async () => {
             setIsLoading(true);
             const url = "http://localhost:5000/login";
-            const response = await fetch(url, {
-                signal: controller.signal,
-                mode: "cors",
-                credentials: "include",
-                method: "get",
-            });
-            await sleep(ms);
-            if (response.status === 200) {
-                setIsLogged(true);
-                const json = await response.json();
-                setUsername(json.username);
-            } else {
-                setIsLogged(false);
-                setUsername(null);
+            try {
+                const response = await fetch(url, {
+                    signal: controller.signal,
+                    mode: "cors",
+                    credentials: "include",
+                    method: "get",
+                });
+                await sleep(ms);
+                if (response.status === 200) {
+                    setIsLogged(true);
+                    const json = await response.json();
+                    setUsername(json.username);
+                } else {
+                    setIsLogged(false);
+                    setUsername(null);
+                }
+                setIsLoading(false);
+            } catch (err) {
+                console.log(err);
             }
-            setIsLoading(false);
         })();
         return () => {
-            controller.abort();
+            controller.abort("Cancelled because of React StrictMode it gets called twice.");
         };
     }, []);
 

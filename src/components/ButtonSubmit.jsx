@@ -10,5 +10,5 @@ export default function ButtonSubmit({ text = "Submit" }) {
 }
 
 ButtonSubmit.propTypes = {
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
 };

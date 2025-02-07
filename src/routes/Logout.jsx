@@ -8,24 +8,30 @@ function Logout() {
         const controller = new AbortController();
         (async () => {
             const url = "http://localhost:5000/logout";
-            const response = await fetch(url, {
-                mode: "cors",
-                method: "post",
-                credentials: "include",
-                signal: controller.signal,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-            if (response.error) {
-                console.log(response.error);
+            try {
+                const response = await fetch(url, {
+                    mode: "cors",
+                    method: "post",
+                    credentials: "include",
+                    signal: controller.signal,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                if (response.error) {
+                    console.log(response.error);
+                }
+                setIsLogged(false);
+                setUsername(null);
+                routes.navigate("/");
+                return;
+            } catch (err) {
+                console.log(err);
             }
-            setIsLogged(false);
-            setUsername(null);
-            routes.navigate("/");
-            return;
         })();
-        return () => controller.abort();
+        return () => {
+            controller.abort("Cancelled because of React StrictMode it gets called twice.");
+        };
     }, [setIsLogged]);
 
     return;

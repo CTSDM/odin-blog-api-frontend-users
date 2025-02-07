@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import ButtonSubmit from "../src/components/ButtonSubmit.jsx";
+import ButtonSubmit from "../../../src/components/ButtonSubmit.jsx";
 
 describe("The component ", () => {
     it("should be rendered", () => {
