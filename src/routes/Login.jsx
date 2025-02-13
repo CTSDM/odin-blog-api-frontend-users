@@ -12,6 +12,13 @@ export default function Login() {
     const navigate = useNavigate();
     const response = useActionData();
 
+    // We only want the message to be shown once
+    useEffect(() => {
+        if (refMessage) {
+            refMessage.current = null;
+        }
+    }, [refMessage]);
+
     useEffect(() => {
         if (isLogged) {
             navigate("/");
