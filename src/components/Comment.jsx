@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import styles from "./Comment.module.css";
 import backupSrc from "../assets/backup.svg";
 import { getDateFormatted } from "../utils/utils";
+import requests from "../utils/requests";
 
 function Comment({ id, content, profilePictureLink, author, createdTime, username, setPost }) {
     const profileSrc = profilePictureLink ? profilePictureLink : backupSrc;
@@ -11,7 +12,7 @@ function Comment({ id, content, profilePictureLink, author, createdTime, usernam
             username: author,
             id: id,
         };
-        const response = await deleteComment(data);
+        const response = await requests.deleteComment(data);
 
         if (response && response.status === 404) {
             console.log("The comment was not found.");
@@ -45,21 +46,6 @@ function Comment({ id, content, profilePictureLink, author, createdTime, usernam
             ) : null}
         </div>
     );
-}
-
-async function deleteComment(data) {
-    const url = "http://localhost:5000/comments";
-    const response = await fetch(url, {
-        credentials: "include",
-        method: "delete",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-    return { status: response.status };
 }
 
 Comment.propTypes = {

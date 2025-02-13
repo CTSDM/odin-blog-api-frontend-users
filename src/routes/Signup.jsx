@@ -8,6 +8,7 @@ import { getLengthArrofArr } from "../utils/utils.js";
 import styles from "./Signup.module.css";
 import stylesShared from "../styles/form.module.css";
 import FormCredentials from "../components/FormCredentials.jsx";
+import requests from "../utils/requests.js";
 
 export default function Signup() {
     const [info, setInfo] = useState("");
@@ -101,26 +102,5 @@ export const action = async ({ request }) => {
         password: data.get("password"),
         rePassword: data.get("rePassword"),
     };
-
-    const status = await submitSignup(submission);
-    return status;
+    return await requests.submitSignup(submission);
 };
-
-async function submitSignup(data) {
-    const url = "http://localhost:5000/signup";
-    const response = await fetch(url, {
-        mode: "cors",
-        credentials: "include",
-        method: "post",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-
-    const json = await response.json();
-
-    return { status: response.status, data: json };
-}

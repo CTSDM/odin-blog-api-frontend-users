@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PostPreview from "./PostPreview.jsx";
 import styles from "./PostPreviewContainer.module.css";
+import requests from "../utils/requests.js";
 
 function PostPreviewContainer() {
     const [postInfo, setPostInfo] = useState(null);
@@ -9,7 +10,7 @@ function PostPreviewContainer() {
         const controller = new AbortController();
         (async () => {
             try {
-                const response = await getAllPosts(controller);
+                const response = await requests.getAllPosts(controller);
                 setPostInfo(response);
             } catch (err) {
                 console.log(err);
@@ -43,22 +44,6 @@ function PostPreviewContainer() {
             })}
         </div>
     );
-}
-
-async function getAllPosts(controller) {
-    const url = "http://localhost:5000/posts";
-    const response = await fetch(url, {
-        signal: controller.signal,
-        credentials: "include",
-        method: "get",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-    const json = await response.json();
-    return { status: response.status, data: json };
 }
 
 export default PostPreviewContainer;

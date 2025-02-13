@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import PropTypes from "prop-types";
-import styles from "./GlobalStateProvider.module.css";
-
+import requests from "./requests.js";
 import { Context } from "./GlobalStateContext.js";
 import NavigationBar from "../components/NavigationBar.jsx";
+import styles from "./GlobalStateProvider.module.css";
 
 function GlobalContextProvider() {
     const [isLoading, setIsLoading] = useState(true);
@@ -17,19 +17,12 @@ function GlobalContextProvider() {
         const controller = new AbortController();
         (async () => {
             setIsLoading(true);
-            const url = "http://localhost:5000/login";
             try {
-                const response = await fetch(url, {
-                    signal: controller.signal,
-                    mode: "cors",
-                    credentials: "include",
-                    method: "get",
-                });
+                const response = await requests.getLogin(controller);
                 await sleep(ms);
                 if (response.status === 200) {
                     setIsLogged(true);
-                    const json = await response.json();
-                    setUsername(json.username);
+                    setUsername(response.username);
                 } else {
                     setIsLogged(false);
                     setUsername(null);

@@ -4,11 +4,12 @@ import { useLoaderData } from "react-router-dom";
 import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
 import Comment from "../components/Comment.jsx";
 import CreateComment from "../components/CreateComment.jsx";
+import requests from "../utils/requests.js";
 import styles from "./Post.module.css";
 
 export async function loader({ params }) {
     const postId = params.postId;
-    const response = await getPost(postId);
+    const response = await requests.getPost(postId);
     return response;
 }
 
@@ -60,23 +61,5 @@ function Post() {
 Post.propTypes = {
     params: PropTypes.object,
 };
-
-async function getPost(id) {
-    const url = `http://localhost:5000/posts/${id}`;
-    const response = await fetch(url, {
-        credentials: "include",
-        method: "get",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-    if (!response.ok) {
-        return { status: response.status };
-    }
-    const json = await response.json();
-    return { status: response.status, data: json };
-}
 
 export default Post;

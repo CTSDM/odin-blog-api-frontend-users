@@ -5,6 +5,7 @@ import FormCredentials from "../components/FormCredentials.jsx";
 import { env } from "../../config/config.js";
 import styles from "./Login.module.css";
 import stylesShared from "../styles/form.module.css";
+import requests from "../utils/requests.js";
 
 export default function Login() {
     const [info, setInfo] = useState("");
@@ -64,25 +65,6 @@ export const action = async ({ request }) => {
         username: data.get("username"),
         password: data.get("password"),
     };
-
-    const response = await submitLogin(submission);
+    const response = await requests.submitLogin(submission);
     return response;
 };
-
-async function submitLogin(data) {
-    const url = "http://localhost:5000/login";
-    const response = await fetch(url, {
-        mode: "cors",
-        credentials: "include",
-        method: "post",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-
-    const userData = await response.json();
-    return { status: response.status, ...userData };
-}

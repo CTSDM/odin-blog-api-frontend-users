@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Form, useActionData } from "react-router-dom";
 import styles from "./CreateComment.module.css";
+import requests from "../utils/requests";
 
 function CreateComment({ postId, setPost }) {
     const response = useActionData();
@@ -20,7 +21,7 @@ function CreateComment({ postId, setPost }) {
     useEffect(() => {
         if (response) {
             (async () => {
-                const responsePost = await getPost(postId);
+                const responsePost = await requests.getPost(postId);
                 const post = responsePost.data;
                 setPost(post);
             })();
@@ -47,48 +48,12 @@ export const action = async ({ request }) => {
     };
     const form = document.querySelector("form");
     form.reset();
-
-    return await submitComment(submission);
+    return await requests.submitComment(submission);
 };
-
-async function submitComment(data) {
-    const url = "http://localhost:5000/comments";
-    const response = await fetch(url, {
-        mode: "cors",
-        credentials: "include",
-        method: "post",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-
-    return { status: response.status };
-}
 
 CreateComment.propTypes = {
     postId: PropTypes.number.isRequired,
     setPost: PropTypes.func.isRequired,
 };
-
-async function getPost(id) {
-    const url = `http://localhost:5000/posts/${id}`;
-    const response = await fetch(url, {
-        credentials: "include",
-        method: "get",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-        },
-    });
-    if (!response.ok) {
-        return { status: response.status };
-    }
-    const json = await response.json();
-    return { status: response.status, data: json };
-}
 
 export default CreateComment;

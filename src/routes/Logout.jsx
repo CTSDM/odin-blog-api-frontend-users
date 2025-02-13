@@ -1,23 +1,15 @@
 import { useEffect, useContext } from "react";
 import { Context as GlobalContext } from "../utils/GlobalStateContext.js";
 import { routes } from "../routes.jsx";
+import requests from "../utils/requests.js";
 
 function Logout() {
     const [, setIsLogged, , setUsername] = useContext(GlobalContext);
     useEffect(() => {
         const controller = new AbortController();
         (async () => {
-            const url = "http://localhost:5000/logout";
             try {
-                const response = await fetch(url, {
-                    mode: "cors",
-                    method: "post",
-                    credentials: "include",
-                    signal: controller.signal,
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+                const response = await requests.submitLogout(controller);
                 if (response.error) {
                     console.log(response.error);
                 }
