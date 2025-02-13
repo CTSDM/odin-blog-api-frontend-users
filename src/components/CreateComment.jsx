@@ -1,13 +1,31 @@
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Form, useActionData } from "react-router-dom";
 import styles from "./CreateComment.module.css";
 
-function CreateComment({ postId }) {
+function CreateComment({ postId, setPost }) {
     const response = useActionData();
 
-    if (response && response.status >= 400) {
-        console.log("something went wrong");
+    if (response && response.status >= 500) {
+        console.log("something went wrong on the server side");
+    } else if (response && response.status >= 400) {
+        console.log("you are not authorized to leave a message");
+    } else if (response && response.status === 200) {
+        // i believe this is kinda tricky
+        // i need to first show the user comment as the user submits it
+        // and then i need to re render the page when the response comes back
+        // the id of the one being updated should be something along the lines 'provisional'
     }
+
+    useEffect(() => {
+        if (response) {
+            (async () => {
+                const responsePost = await getPost(postId);
+                const post = responsePost.data;
+                setPost(post);
+            })();
+        }
+    }, [response, postId]);
 
     return (
         <div className={styles.container}>
@@ -27,9 +45,10 @@ export const action = async ({ request }) => {
         content: data.get("content"),
         postId: data.get("postId"),
     };
+    const form = document.querySelector("form");
+    form.reset();
 
-    const status = await submitComment(submission);
-    return status;
+    return await submitComment(submission);
 };
 
 async function submitComment(data) {
@@ -46,11 +65,30 @@ async function submitComment(data) {
         },
     });
 
-    return response.status;
+    return { status: response.status };
 }
 
 CreateComment.propTypes = {
     postId: PropTypes.number.isRequired,
+    setPost: PropTypes.func.isRequired,
 };
+
+async function getPost(id) {
+    const url = `http://localhost:5000/posts/${id}`;
+    const response = await fetch(url, {
+        credentials: "include",
+        method: "get",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "http://localhost:5000",
+        },
+    });
+    if (!response.ok) {
+        return { status: response.status };
+    }
+    const json = await response.json();
+    return { status: response.status, data: json };
+}
 
 export default CreateComment;

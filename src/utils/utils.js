@@ -123,6 +123,27 @@ export function getLengthArrofArr(arrOfArr) {
     return arrOfArr.reduce((acc, arr) => acc + arr.length, 0);
 }
 
+export function getDateFormatted(date) {
+    const currentTimems = new Date().getTime();
+    const commentDatems = date.getTime();
+    const diffInDays = (currentTimems - commentDatems) / 1000 / 60 / 60 / 24;
+    if (diffInDays * 24 < 1) {
+        // less than an hour
+        const minutes = Math.floor(diffInDays * 24 * 60);
+        return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
+    } else if (diffInDays < 1) {
+        // less than a day
+        const hours = Math.floor(diffInDays * 24);
+        return `${hours} ${hours > 1 ? "hours" : "hour"} ago`;
+    } else if (diffInDays < 365) {
+        // less than a year
+        const days = Math.floor(diffInDays);
+        return `${days} ${days > 1 ? "days" : "day"} ago`;
+    } else {
+        return date.toDateString();
+    }
+}
+
 export default {
     curriedHandler,
     handleChangeUsername,

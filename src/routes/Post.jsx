@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
 import Comment from "../components/Comment.jsx";
@@ -14,26 +14,38 @@ export async function loader({ params }) {
 
 function Post() {
     const response = useLoaderData();
-    const [isLogged] = useContext(GlobalStateContext);
-    if (response.status !== 200) return <div>{"Something went wrong on the server side..."}</div>;
+    const [post, setPost] = useState(response.data);
+    const [isLogged, , username] = useContext(GlobalStateContext);
+
+    if (response.status >= 500) {
+        return <div>{"Something went wrong on the server side!"}</div>;
+    } else if (response.status == 404) {
+        return <div>{"The post could not be found."}</div>;
+    } else if (response.status >= 400) {
+        return <div>{"You don't have access to view this post."}</div>;
+    }
+
     return (
         <div className={styles["container-post-comment"]}>
             <div className={styles.container}>
-                <div className={styles.title}>{response.data.title}</div>
-                <div className={styles.author}>{response.data.username}</div>
-                <div className={styles.content}>{response.data.content}</div>
+                <div className={styles.title}>{post.title}</div>
+                <div className={styles.author}>{post.username}</div>
+                <div className={styles.content}>{post.content}</div>
             </div>
-            {isLogged ? <CreateComment postId={response.data.id} /> : null}
-            {response.data.comments.length ? (
+            {isLogged ? <CreateComment postId={post.id} setPost={setPost} /> : null}
+            {post.comments.length ? (
                 <div className={styles["comments-container"]}>
-                    {response.data.comments.map((comment) => {
+                    {post.comments.map((comment) => {
                         return (
                             <Comment
                                 key={comment.id}
+                                id={comment.id}
                                 content={comment.content}
                                 author={comment.username}
+                                username={username}
                                 // we convert the date string into date Object
                                 createdTime={new Date(comment["created_time"])}
+                                setPost={setPost}
                             />
                         );
                     })}

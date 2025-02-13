@@ -77,5 +77,5 @@ async function submitLogin(data) {
     });
 
     const userData = await response.json();
-    return { status: response.status, username: userData.username };
+    return { status: response.status, ...userData };
 }

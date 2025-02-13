@@ -1,9 +1,33 @@
 import PropTypes from "prop-types";
 import styles from "./Comment.module.css";
 import backupSrc from "../assets/backup.svg";
+import { getDateFormatted } from "../utils/utils";
 
-function Comment({ content, profilePictureLink, author, createdTime }) {
+function Comment({ id, content, profilePictureLink, author, createdTime, username, setPost }) {
     const profileSrc = profilePictureLink ? profilePictureLink : backupSrc;
+
+    async function handleClick() {
+        const data = {
+            username: author,
+            id: id,
+        };
+        const response = await deleteComment(data);
+
+        if (response && response.status === 404) {
+            console.log("The comment was not found.");
+        } else if (response && response.status >= 400) {
+            console.log("Unathorized operation.");
+        } else if (response && response.status === 200) {
+            // let's delete the comment also locally
+            console.log("The comment was successfully deleted from the DB.");
+            setPost((post) => {
+                return { ...post, comments: post.comments.filter((comment) => comment.id !== id) };
+            });
+        } else {
+            console.log("Something went wrong on the server");
+        }
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles["profile-pic"]}>
@@ -11,18 +35,41 @@ function Comment({ content, profilePictureLink, author, createdTime }) {
             </div>
             <div className={styles.info}>
                 <div className={styles.author}>{author}</div>
-                <div className={styles.date}>{createdTime.toDateString()}</div>
+                <div className={styles.date}>{getDateFormatted(createdTime)}</div>
             </div>
             <div className={styles.content}>{content}</div>
+            {username === author ? (
+                <button type="button" onClick={handleClick}>
+                    Delete
+                </button>
+            ) : null}
         </div>
     );
 }
 
+async function deleteComment(data) {
+    const url = "http://localhost:5000/comments";
+    const response = await fetch(url, {
+        credentials: "include",
+        method: "delete",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Access-Control-Allow-Origin": "http://localhost:5000",
+        },
+    });
+    return { status: response.status };
+}
+
 Comment.propTypes = {
+    id: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
+    username: PropTypes.string,
     createdTime: PropTypes.instanceOf(Date).isRequired,
     profilePictureLink: PropTypes.string,
+    setPost: PropTypes.func.isRequired,
 };
 
 export default Comment;

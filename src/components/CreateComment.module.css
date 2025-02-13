@@ -16,6 +16,7 @@
 
 .form textarea {
   font-size: 1.1rem;
+  padding: 5px;
 }
 
 .form button {
