@@ -1,35 +1,42 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Form, useActionData } from "react-router-dom";
 import styles from "./CreateComment.module.css";
 import requests from "../utils/requests";
+import { validateData } from "../utils/utils";
 
 function CreateComment({ postId, setPost }) {
     const response = useActionData();
-
-    if (response && response.status >= 500) {
-        console.log("something went wrong on the server side");
-    } else if (response && response.status >= 400) {
-        console.log("you are not authorized to leave a message");
-    } else if (response && response.status === 200) {
-        // i believe this is kinda tricky
-        // i need to first show the user comment as the user submits it
-        // and then i need to re render the page when the response comes back
-        // the id of the one being updated should be something along the lines 'provisional'
-    }
+    const [messageStatus, setMessageStatus] = useState(null);
 
     useEffect(() => {
-        if (response) {
+        const controller = new AbortController();
+        if (response && response.status === 200) {
+            const form = document.querySelector("form");
+            form.reset();
             (async () => {
-                const responsePost = await requests.getPost(postId);
+                const responsePost = await requests.getPost(postId, controller);
                 const post = responsePost.data;
                 setPost(post);
             })();
         }
+        if (response && response.errMsg) {
+            setMessageStatus(response.errMsg);
+        } else if (messageStatus !== null) {
+            setMessageStatus(null);
+        }
+        return () => {
+            controller.abort("Cancelled because of React StrictMode it gets called twice.");
+        };
     }, [response, postId]);
 
     return (
         <div className={styles.container}>
+            {messageStatus
+                ? messageStatus.map((message) => {
+                      <div>{message}</div>;
+                  })
+                : null}
             <div>Write a new comment:</div>
             <Form className={styles.form} method="POST" action={`/posts/${postId}`}>
                 <textarea rows="4" cols="60" name="content"></textarea>
@@ -46,8 +53,10 @@ export const action = async ({ request }) => {
         content: data.get("content"),
         postId: data.get("postId"),
     };
-    const form = document.querySelector("form");
-    form.reset();
+    const validationMessages = validateData(submission);
+    if (validationMessages.length > 0) {
+        return { errMsg: validationMessages };
+    }
     return await requests.submitComment(submission);
 };
 

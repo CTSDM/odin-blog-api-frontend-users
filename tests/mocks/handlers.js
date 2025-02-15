@@ -1,55 +1,76 @@
 import { http, HttpResponse } from "msw";
 import { comment, post } from "../validEntries";
+import { env } from "../../config/config.js";
 
 export const handlers = [
-    http.get("http://localhost:5000/login", () => {
-        return HttpResponse(null, { status: 401 });
+    http.get(env.server_url + "/login", () => {
+        return new HttpResponse(null, { status: 401 });
     }),
 
-    http.post("http://localhost:5000/login", () => {
+    http.post(env.server_url + "/login", () => {
         return HttpResponse.json({
             data: "welcome back",
         });
     }),
 
-    http.post("http://localhost:5000/signup", () => {
+    http.post(env.server_url + "/signup", () => {
         return HttpResponse.json({
             username: "username",
         });
     }),
 
-    http.get("http://localhost:5000/posts", () => {
+    http.get(env.server_url + "/posts", () => {
         return HttpResponse.json([{ id: 0, title: "title", content: "content", username: "user" }]);
     }),
 
-    http.post("http://localhost:5000/logout", () => {
-        return HttpResponse(null, { status: 205 });
+    http.post(env.server_url + "/logout", () => {
+        return new HttpResponse(null, { status: 205 });
     }),
 
-    http.get(`http://localhost:5000/posts/${post.id}`, () => {
+    http.get(env.server_url + `/posts/${post.id}`, () => {
         return HttpResponse.json(post);
     }),
 
-    http.post("http://localhost:5000/comments", () => {
+    http.post(env.server_url + "/comments", () => {
         return HttpResponse.json({ msg: "APE POSTED", id: 99 });
+    }),
+
+    http.post(env.server_url + `/posts/${post.id}/like`, () => {
+        return new HttpResponse(null, { status: 200 });
+    }),
+
+    http.delete(env.server_url + `/posts/${post.id}/like`, () => {
+        return new HttpResponse(null, { status: 200 });
     }),
 ];
 
 export const handlersAlternative = {
-    loginPost401: http.post("http://localhost:5000/login", () => {
-        return HttpResponse(null, { status: 401 });
+    loginPost401: http.post(env.server_url + "/login", () => {
+        return new HttpResponse(null, { status: 401 });
     }),
-    loginGet: http.get("http://localhost:5000/login", () => {
+    loginGet: http.get(env.server_url + "/login", () => {
         return HttpResponse.json({ username: "username" });
     }),
-    signUpPost400: http.post("http://localhost:5000/signup", () => {
-        return HttpResponse(null, { status: 400 });
+    loginGetLiked: http.get(env.server_url + "/login", () => {
+        return HttpResponse.json({ username: "user" });
+    }),
+    signUpPost400: http.post(env.server_url + "/signup", () => {
+        return HttpResponse.json({ errMsg: "some errors" }, { status: 201 });
     }),
     // add a new comment
-    postIdGet: http.get(`http://localhost:5000/posts/${post.id}`, () => {
+    postIdGet: http.get(env.server_url + `/posts/${post.id}`, () => {
         return HttpResponse.json({ ...post, comments: [...post.comments, comment] });
     }),
-    postIdGet400: http.get(`http://localhost:5000/posts/${post.id}`, () => {
-        return HttpResponse(null, { status: 400 });
+    postIdGet400: http.get(env.server_url + `/posts/${post.id}`, () => {
+        return new HttpResponse(null, { status: 404 });
+    }),
+    likePost500: http.post(env.server_url + `/posts/${post.id}/like`, () => {
+        return new HttpResponse(null, { status: 500 });
+    }),
+    likeDelete404: http.delete(env.server_url + `/posts/${post.id}/like`, () => {
+        return new HttpResponse(null, { status: 404 });
+    }),
+    likeDelete500: http.delete(env.server_url + `/posts/${post.id}/like`, () => {
+        return new HttpResponse(null, { status: 500 });
     }),
 };

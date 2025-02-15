@@ -15,17 +15,17 @@ function Comment({ id, content, profilePictureLink, author, createdTime, usernam
         const response = await requests.deleteComment(data);
 
         if (response && response.status === 404) {
-            console.log("The comment was not found.");
+            window.alert("The comment was not found.");
         } else if (response && response.status >= 400) {
-            console.log("Unathorized operation.");
+            window.alert("Unathorized operation.");
         } else if (response && response.status === 200) {
-            // let's delete the comment also locally
-            console.log("The comment was successfully deleted from the DB.");
             setPost((post) => {
                 return { ...post, comments: post.comments.filter((comment) => comment.id !== id) };
             });
         } else {
-            console.log("Something went wrong on the server");
+            window.alert(
+                "Something went wrong on the server, please reload the page and try again.",
+            );
         }
     }
 

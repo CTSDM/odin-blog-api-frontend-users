@@ -1,6 +1,6 @@
 const user = {
     username: "user",
-    password: "Pa_123_Pa",
+    password: "Pa_123",
 };
 
 const post = {
@@ -10,6 +10,7 @@ const post = {
     visible: true,
     username: "usernameTEST",
     created_time: "2025-01-25T07:56:37.059Z",
+    likes: ["user", "admin", "anotherUser", "randomUser"],
     comments: [
         {
             id: 1,

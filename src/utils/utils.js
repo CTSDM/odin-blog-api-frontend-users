@@ -144,10 +144,22 @@ export function getDateFormatted(date) {
     }
 }
 
+export function validateData(submission) {
+    const messages = [];
+    if (submission.content.length === 0) {
+        messages.push("The comment can't be empty");
+    }
+    if (typeof +submission.postId !== "number") {
+        messages.push("Something went wrong with the post identifier, please refresh the page.");
+    }
+    return messages;
+}
+
 export default {
     curriedHandler,
     handleChangeUsername,
     checkFunctions,
+    validateData,
 };
 
 export { checkUsername, checkPassword, getHrefsInfo };

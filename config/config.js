@@ -34,6 +34,10 @@ const env = {
         },
     },
     server_url: "http://localhost:5000",
+    dev: {
+        status: true,
+        delay: 100,
+    },
 };
 
 export { env, elementsNavBar };

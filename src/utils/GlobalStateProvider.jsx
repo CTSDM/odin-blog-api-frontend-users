@@ -5,13 +5,13 @@ import requests from "./requests.js";
 import { Context } from "./GlobalStateContext.js";
 import NavigationBar from "../components/NavigationBar.jsx";
 import styles from "./GlobalStateProvider.module.css";
+import { env } from "../../config/config.js";
 
 function GlobalContextProvider() {
     const [isLoading, setIsLoading] = useState(true);
     const [isLogged, setIsLogged] = useState(false);
     const [username, setUsername] = useState(null);
     const message = useRef();
-    const ms = 500;
 
     useEffect(() => {
         const controller = new AbortController();
@@ -19,7 +19,10 @@ function GlobalContextProvider() {
             setIsLoading(true);
             try {
                 const response = await requests.getLogin(controller);
-                await sleep(ms);
+
+                if (env.dev.status) {
+                    await sleep(env.dev.delay);
+                }
                 if (response.status === 200) {
                     setIsLogged(true);
                     setUsername(response.username);
