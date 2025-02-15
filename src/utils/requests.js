@@ -11,11 +11,8 @@ async function submitLogin(data) {
             "Content-Type": "application/json",
         },
     });
-    if (response.ok) {
-        const userData = await response.json();
-        return { status: response.status, ...userData };
-    }
-    return { status: response.status };
+    const userData = await response.json();
+    return { status: response.status, ...userData };
 }
 
 async function submitSignup(data) {
@@ -29,11 +26,8 @@ async function submitSignup(data) {
             "Content-Type": "application/json",
         },
     });
-    if (response.ok) {
-        const json = await response.json();
-        return { status: response.status, data: json };
-    }
-    return { status: response.status };
+    const json = await response.json();
+    return { status: response.status, data: json };
 }
 
 async function submitLogout(controller) {
@@ -72,6 +66,10 @@ async function submitComment(data) {
             "Content-Type": "application/json",
         },
     });
+    if (!response.ok) {
+        const json = await response.json();
+        return { status: response.status, errMsg: json.errMsg };
+    }
     return { status: response.status };
 }
 
@@ -112,7 +110,11 @@ async function getLogin(controller) {
     });
     if (response.ok) {
         const json = await response.json();
-        return { status: response.status, username: json.username };
+        return {
+            status: response.status,
+            username: json.username,
+            profileSrc: json.profileSrc,
+        };
     }
     return { status: response.status };
 }
