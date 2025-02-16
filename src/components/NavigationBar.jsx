@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 import { elementsNavBar } from "../../config/config.js";
 import styles from "./NavigationBar.module.css";
 import navBarImg from "../assets/delta-sigma.svg";
+import ImageProfile from "./ImageProfile.jsx";
+import backupSrc from "../assets/backup.svg";
 
-function NavigationBar({ isLogged, username }) {
+function NavigationBar({ isLogged, username, profileSrc }) {
     const entries = getHrefsInfo(elementsNavBar, isLogged);
+    const realAvatarSrc = profileSrc ? profileSrc : backupSrc;
     return (
         <div role={"nav-container"} className={styles.bar}>
             <div>
@@ -14,7 +17,14 @@ function NavigationBar({ isLogged, username }) {
                 </Link>
             </div>
             <div className={styles.subcontainer}>
-                {isLogged ? <span>{username}</span> : null}
+                {isLogged ? (
+                    <div>
+                        <span>{username}</span>
+                        <div className={styles.pic}>
+                            <ImageProfile profileSrc={realAvatarSrc} />
+                        </div>
+                    </div>
+                ) : null}
                 <nav>
                     {entries.map((entry) => (
                         <NavLink to={entry[1]} key={entry[1]}>
@@ -36,6 +46,7 @@ function getHrefsInfo(obj, isLogged) {
 NavigationBar.propTypes = {
     isLogged: PropTypes.bool.isRequired,
     username: PropTypes.string,
+    profileSrc: PropTypes.string,
 };
 
 export default NavigationBar;

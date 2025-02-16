@@ -18,7 +18,8 @@ nav {
   z-index: 1;
 }
 
-.bar img {
+.bar img,
+.bar video {
   height: 1.5rem;
 }
 
@@ -35,7 +36,13 @@ nav {
   gap: 20px;
 }
 
-.subcontainer>span {
+.subcontainer>div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.subcontainer span {
   color: darkcyan;
   font-size: 0.9rem;
   font-weight: 800;

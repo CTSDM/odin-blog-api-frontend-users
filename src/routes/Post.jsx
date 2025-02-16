@@ -91,22 +91,26 @@ function Post() {
             </div>
             {isLogged ? <CreateComment postId={post.id} setPost={setPost} /> : null}
             {post.comments.length ? (
-                <div className={styles["comments-container"]}>
-                    {post.comments.map((comment) => {
-                        return (
-                            <Comment
-                                key={comment.id}
-                                id={comment.id}
-                                content={comment.content}
-                                author={comment.username}
-                                username={username}
-                                // we convert the date string into date Object
-                                createdTime={new Date(comment["created_time"])}
-                                setPost={setPost}
-                            />
-                        );
-                    })}
-                </div>
+                <>
+                    <div className={styles["comments-container"]}>
+                        <div className={styles["comments-header"]}>Comments section</div>
+                        {post.comments.map((comment) => {
+                            return (
+                                <Comment
+                                    key={comment.id}
+                                    id={comment.id}
+                                    content={comment.content}
+                                    author={comment.username}
+                                    profileSrcServer={comment.profileSrc}
+                                    username={username}
+                                    // we convert the date string into date Object
+                                    createdTime={new Date(comment["created_time"])}
+                                    setPost={setPost}
+                                />
+                            );
+                        })}
+                    </div>
+                </>
             ) : (
                 <div>There are no comments yet...!</div>
             )}

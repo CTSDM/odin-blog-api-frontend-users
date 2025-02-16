@@ -3,9 +3,10 @@ import styles from "./Comment.module.css";
 import backupSrc from "../assets/backup.svg";
 import { getDateFormatted } from "../utils/utils";
 import requests from "../utils/requests";
+import ImageProfile from "./ImageProfile";
 
-function Comment({ id, content, profilePictureLink, author, createdTime, username, setPost }) {
-    const profileSrc = profilePictureLink ? profilePictureLink : backupSrc;
+function Comment({ id, content, profileSrcServer, author, createdTime, username, setPost }) {
+    const profileSrc = profileSrcServer ? profileSrcServer : backupSrc;
 
     async function handleClick() {
         const data = {
@@ -32,7 +33,7 @@ function Comment({ id, content, profilePictureLink, author, createdTime, usernam
     return (
         <div className={styles.container}>
             <div className={styles["profile-pic"]}>
-                <img src={profileSrc} alt="User profile picture" />
+                <ImageProfile profileSrc={profileSrc} />
             </div>
             <div className={styles.info}>
                 <div className={styles.author}>{author}</div>
@@ -54,7 +55,7 @@ Comment.propTypes = {
     author: PropTypes.string.isRequired,
     username: PropTypes.string,
     createdTime: PropTypes.instanceOf(Date).isRequired,
-    profilePictureLink: PropTypes.string,
+    profileSrcServer: PropTypes.string,
     setPost: PropTypes.func.isRequired,
 };
 

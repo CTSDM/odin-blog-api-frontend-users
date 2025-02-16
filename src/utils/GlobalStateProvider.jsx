@@ -11,6 +11,7 @@ function GlobalContextProvider() {
     const [isLoading, setIsLoading] = useState(true);
     const [isLogged, setIsLogged] = useState(false);
     const [username, setUsername] = useState(null);
+    const [profileSrc, setProfileSrc] = useState(null);
     const message = useRef();
 
     useEffect(() => {
@@ -26,6 +27,7 @@ function GlobalContextProvider() {
                 if (response.status === 200) {
                     setIsLogged(true);
                     setUsername(response.username);
+                    setProfileSrc(response.profileSrc);
                 } else {
                     setIsLogged(false);
                     setUsername(null);
@@ -41,13 +43,19 @@ function GlobalContextProvider() {
     }, []);
 
     return (
-        <Context.Provider value={[isLogged, setIsLogged, username, setUsername, message]}>
+        <Context.Provider
+            value={[isLogged, setIsLogged, username, setUsername, message, setProfileSrc]}
+        >
             {isLoading ? (
                 <div>loading</div>
             ) : (
                 <>
                     <header>
-                        <NavigationBar isLogged={isLogged} username={username} />
+                        <NavigationBar
+                            isLogged={isLogged}
+                            username={username}
+                            profileSrc={profileSrc}
+                        />
                     </header>
                     <div className={styles.container}>
                         <Outlet />

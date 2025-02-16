@@ -9,7 +9,8 @@ import requests from "../utils/requests.js";
 
 export default function Login() {
     const [info, setInfo] = useState("");
-    const [isLogged, setIsLogged, , setUsername, refMessage] = useContext(GlobalStateContext);
+    const [isLogged, setIsLogged, , setUsername, refMessage, setProfileSrc] =
+        useContext(GlobalStateContext);
     const navigate = useNavigate();
     const response = useActionData();
 
@@ -30,6 +31,7 @@ export default function Login() {
                 setInfo("APE IS IN");
                 setIsLogged(true);
                 setUsername(response.username);
+                setProfileSrc(response.profileSrc);
                 navigate("/");
                 return;
             } else {

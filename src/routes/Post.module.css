@@ -23,10 +23,21 @@
 
 .comments-container {
   display: grid;
+  position: relative;
   gap: 10px;
-  border: 2px solid #FF11BB;
+  border: 2px solid #FFFFAA;
   padding: 10px;
+  padding-top: 20px;
   border-radius: 10px;
+}
+
+.comments-header {
+  position: absolute;
+  justify-self: center;
+  top: -12px;
+  background-color: #242424;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .container-post-comment {

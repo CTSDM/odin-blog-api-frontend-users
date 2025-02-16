@@ -15,11 +15,14 @@
   grid-area: profile-pic;
   place-self: top;
   border: 5px;
+  display: grid;
+  place-content: center;
 }
 
-.profile-pic img {
-  height: 80px;
-  width: 80px;
+.profile-pic img,
+.profile-pic video {
+  max-height: 80px;
+  max-width: 80px;
 }
 
 .info {
