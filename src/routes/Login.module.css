@@ -6,6 +6,13 @@
   border-radius: 30px;
 }
 
+.container {
+  display: grid;
+  gap: 40px;
+  max-width: min(max(500px, 70vw), 1000px);
+  margin: auto;
+}
+
 .message {
   padding-left: 20px;
   font-weight: 600;
@@ -18,10 +25,8 @@
 }
 
 .container-inputs {
-  display: grid;
   justify-content: center;
-  gap: 15px;
-  padding: 40px 200px;
+  padding: 40px 100px;
 }
 
 button.input {

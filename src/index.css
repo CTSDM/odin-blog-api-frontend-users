@@ -1,5 +1,12 @@
 * {
   margin: 0px;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+button,
+textarea,
+input {
+  background-color: #151515;
 }
 
 :root {
@@ -7,7 +14,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
   color: rgba(255, 255, 255, 0.87);
   background-color: #151515;
 
@@ -34,7 +41,7 @@ a:hover {
   height: 100vh;
   overflow-y: auto;
   max-width: 1100px;
-  min-width: 600px;
+  min-width: 320px;
   margin: 0 auto;
   background-color: #242424;
 }
@@ -43,6 +50,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #151515;
 }
 
 h1 {
@@ -69,19 +77,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
 }

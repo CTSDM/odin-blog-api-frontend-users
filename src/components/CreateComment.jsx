@@ -39,7 +39,7 @@ function CreateComment({ postId, setPost }) {
                 : null}
             <div>Write a new comment:</div>
             <Form className={styles.form} method="POST" action={`/posts/${postId}`}>
-                <textarea rows="4" cols="60" name="content"></textarea>
+                <textarea name="content"></textarea>
                 <input type="text" hidden name="postId" defaultValue={postId} />
                 <button type="submit">Submit new comment</button>
             </Form>

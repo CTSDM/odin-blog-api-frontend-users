@@ -6,12 +6,13 @@
   border-radius: 5px;
   margin: auto;
   padding: 4px 10px;
+  width: min(90%, 800px);
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 15px;
+  max-width: 900px;
 }
 
 .form textarea {

@@ -34,7 +34,7 @@ function updateLikes(method, username, post) {
     }
 }
 
-function Post() {
+export default function Post() {
     const responseLoader = useLoaderData();
     const [post, setPost] = useState(responseLoader.data);
     const [isLogged, , username] = useContext(GlobalStateContext);
@@ -121,5 +121,3 @@ function Post() {
 Post.propTypes = {
     params: PropTypes.object,
 };
-
-export default Post;

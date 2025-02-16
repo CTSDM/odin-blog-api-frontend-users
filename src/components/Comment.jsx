@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import styles from "./Comment.module.css";
 import backupSrc from "../assets/backup.svg";
 import { getDateFormatted } from "../utils/utils";
 import requests from "../utils/requests";
 import ImageProfile from "./ImageProfile";
+import styles from "./Comment.module.css";
 
 function Comment({ id, content, profileSrcServer, author, createdTime, username, setPost }) {
     const profileSrc = profileSrcServer ? profileSrcServer : backupSrc;

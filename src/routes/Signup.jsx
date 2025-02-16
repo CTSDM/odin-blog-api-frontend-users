@@ -51,7 +51,7 @@ export default function Signup() {
 
     return (
         <>
-            <div className={stylesShared.container}>
+            <div className={styles.container}>
                 <div className={styles["container-information"]}>
                     <div className={styles.instructions}>
                         <div>

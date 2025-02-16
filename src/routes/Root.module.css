@@ -3,7 +3,7 @@
   display: grid;
   height: fit-content;
   justify-self: center;
-  width: min(max(500px, 70vw), 1000px);
+  max-width: min(max(500px, 70vw), 1000px);
 }
 
 .link {
