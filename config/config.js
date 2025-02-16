@@ -33,10 +33,10 @@ const env = {
             },
         },
     },
-    server_url: "http://localhost:5000",
+    server_url: import.meta.env.VITE_SERVER,
     dev: {
-        status: true,
-        delay: 1000,
+        status: import.meta.env.VITE_DEV_STATUS,
+        delay: import.meta.env.VITE_DELAY,
     },
 };
 
