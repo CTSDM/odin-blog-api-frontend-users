@@ -6,7 +6,6 @@ import ErrMsg from "../components/ErrMsg.jsx";
 import { routes } from "../routes.jsx";
 import { getLengthArrofArr } from "../utils/utils.js";
 import styles from "./Signup.module.css";
-import stylesShared from "../styles/form.module.css";
 import FormCredentials from "../components/FormCredentials.jsx";
 import requests from "../utils/requests.js";
 

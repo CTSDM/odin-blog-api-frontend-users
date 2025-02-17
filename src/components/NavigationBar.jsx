@@ -1,17 +1,17 @@
 import { NavLink, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { elementsNavBar } from "../../config/config.js";
-import styles from "./NavigationBar.module.css";
-import navBarImg from "../assets/delta-sigma.svg";
+import navBarImg from "../assets/delta-sigma.png";
 import ImageProfile from "./ImageProfile.jsx";
 import backupSrc from "../assets/backup.svg";
+import styles from "./NavigationBar.module.css";
 
 function NavigationBar({ isLogged, username, profileSrc }) {
     const entries = getHrefsInfo(elementsNavBar, isLogged);
     const realAvatarSrc = profileSrc ? profileSrc : backupSrc;
     return (
         <div role={"nav-container"} className={styles.bar}>
-            <div>
+            <div className={styles.logo}>
                 <Link to={"/"}>
                     <img src={navBarImg} alt="company logo" />
                 </Link>
@@ -19,10 +19,10 @@ function NavigationBar({ isLogged, username, profileSrc }) {
             <div className={styles.subcontainer}>
                 {isLogged ? (
                     <div>
-                        <span>{username}</span>
                         <div className={styles.pic}>
                             <ImageProfile profileSrc={realAvatarSrc} />
                         </div>
+                        <div className={styles.username}>{username}</div>
                     </div>
                 ) : null}
                 <nav>

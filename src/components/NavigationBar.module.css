@@ -1,7 +1,5 @@
 nav {
   display: flex;
-  justify-self: end;
-  justify-content: space-between;
   gap: 15px;
 }
 
@@ -11,12 +9,28 @@ nav {
   border: 3px solid black;
   width: auto;
   background-color: #EEFFFF;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding: 0px 40px;
   position: sticky;
   top: 0px;
   z-index: 1;
 }
+
+.pic {
+  display: grid;
+  place-content: center;
+}
+
+.logo {
+  display: grid;
+  place-content: center;
+}
+
+.logo a {
+  display: grid;
+  place-content: center;
+}
+
 
 .bar img,
 .bar video {
@@ -34,6 +48,7 @@ nav {
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  align-items: center;
 }
 
 .subcontainer>div {
@@ -42,11 +57,10 @@ nav {
   gap: 7px;
 }
 
-.subcontainer span {
+.subcontainer .username {
+  margin-top: 2px;
   color: darkcyan;
-  font-size: 0.9rem;
-  font-weight: 800;
+  font-size: 1rem;
+  font-weight: 600;
   font-family: 'Courier New', Courier, monospace;
-  align-self: end;
-  padding-bottom: 2px;
 }

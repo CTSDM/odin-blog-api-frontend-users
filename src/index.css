@@ -41,7 +41,6 @@ a:hover {
   height: 100vh;
   overflow-y: auto;
   max-width: 1100px;
-  min-width: 320px;
   margin: 0 auto;
   background-color: #242424;
 }

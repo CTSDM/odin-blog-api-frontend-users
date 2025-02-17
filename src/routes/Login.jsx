@@ -4,7 +4,6 @@ import { Context as GlobalStateContext } from "../utils/GlobalStateContext.js";
 import FormCredentials from "../components/FormCredentials.jsx";
 import { env } from "../../config/config.js";
 import styles from "./Login.module.css";
-import stylesShared from "../styles/form.module.css";
 import requests from "../utils/requests.js";
 
 export default function Login() {
